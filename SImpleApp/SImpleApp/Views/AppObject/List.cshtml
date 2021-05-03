@@ -1,0 +1,17 @@
+﻿@model IEnumerable<AppObject>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Code</th>
+        <th>Value</th>
+    </tr>
+    @foreach (var p in Model) { 
+        <tr>
+            <td>@p.AppObjectID</td>
+            <td>@p.Code</td>
+            <td>@p.Value</td>
+        </tr>
+    }
+</table>
+
