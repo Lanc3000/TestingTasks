@@ -27,6 +27,8 @@ namespace WebApiApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string conn = "Server=(localdb)\\mssqllocaldb;Database=codeobjectsdbstore;Trusted_Connection=True;";
+            services.AddDbContext<CodeObjectsContext>(options => options.UseSqlServer(conn));
             services.AddControllers();
         }
 
@@ -37,12 +39,13 @@ namespace WebApiApp
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseDefaultFiles();
+
+            app.UseStaticFiles();
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
