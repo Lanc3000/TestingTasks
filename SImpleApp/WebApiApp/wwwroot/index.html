@@ -36,7 +36,7 @@
             });
             if (response.ok === true) {
                 const codeobjects = await response.json();
-                let row = document.querySelector("tbody");
+                let rows = document.querySelector("tbody");
                 codeobjects.forEach(code => {
                     rows.append(row(code));
                 });
@@ -53,43 +53,17 @@
             const tr = document.createElement("tr");
             tr.setAttribute("data-rowid", code.id);
 
-            const idTd = document.creatElement("td");
+            const idTd = document.createElement("td");
             idTd.append(code.id);
             tr.append(idTd);
 
-            const codeTd = document.creatElement("td");
+            const codeTd = document.createElement("td");
             codeTd.append(code.code);
             tr.append(codeTd);
 
-            const valueTd = document.creatElement("td");
+            const valueTd = document.createElement("td");
             valueTd.append(code.value);
             tr.append(valueTd);
-
-            const linksTd = document.createElement("td");
-            const editLink = document.createElement("a");
-
-            editLink.setAttribute("data-id", code.id);
-            editLink.setAttribute("style", "cursor: pointer; padding: 15px;");
-            editLink.append("Изменить");
-            editLink.addEventListener("click", e => {
-
-                e.preventDefault();
-                GetUser(code.id);
-            });
-            linksTd.append(editLink);
-
-            const removeLink = document.createElement("a");
-            removeLink.setAttribute("data-id", code.id);
-            removeLink.setAttribute("style", "cursor:pointer;padding:15px;");
-            removeLink.append("Удалить");
-            removeLink.addEventListener("click", e => {
-
-                e.preventDefault();
-                DeleteUser(code.id);
-            });
-
-            linksTd.append(removeLink);
-            tr.appendChild(linksTd);
 
             return tr;
         }
@@ -105,13 +79,10 @@
             const id = form.elements["id"].value;
             const code = form.elements["code"].value;
             const value = form.elements["value"].value;
-            if (id == 0)
-                CreateCodeObject(code, value);
-            else
-                EditUser(id, code, value);
+            CreateCodeObject(code, value);
         });
 
-        // загрузка пользователей
+        // загрузка объектов
         GetAll();
     </script>
 </body>

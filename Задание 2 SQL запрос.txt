@@ -1,0 +1,31 @@
+Тестовое задание 2
+Даны таблицы:
+Clients - клиенты
+(
+	Id bigint, -- Id клиента
+	ClientName nvarchar(200) -- Наименование клиента
+);
+ClientContacts - контакты клиентов
+(
+	Id bigint, -- Id контакта
+	ClientId bigint, -- Id клиента
+	ContactType nvarchar(255), -- тип контакта
+	ContactValue nvarchar(255) --  значение контакта
+);
+Написать запрос, который возвращает наименование клиентов и кол-во контактов клиентов
+Написать запрос, который возвращает список клиентов, у которых есть более 2 контактов
+
+
+Решение:
+
+1)
+SELECT clients.ClientName, COUNT(clientcontact.ClientId)
+FROM clients INNER JOIN clientcontact
+ON clients.id = clientcontact.ClientId
+GROUP BY clients.ClientName;
+
+2)
+SELECT DISTINCT clients.ClientName
+FROM clients INNER JOIN clientcontact
+ON clients.id = clientcontact.ClientId
+WHERE (SELECT COUNT(ClientId) FROM clientcontact) >= 2;
