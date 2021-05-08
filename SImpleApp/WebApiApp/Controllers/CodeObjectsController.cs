@@ -7,22 +7,34 @@ using System.Threading.Tasks;
 using WebApiApp.Models;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace WebApiApp.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class CodeObjectsController : ControllerBase
     {
+        List<CodeObject> initialList = new List<CodeObject>(){
+                                                new CodeObject { Code = 10, Value = "value10" },
+                                                new CodeObject { Code = 1, Value = "value1" },
+                                                new CodeObject { Code = 5, Value = "value5" },
+                                                new CodeObject { Code = 20, Value = "value20" },
+                                                new CodeObject { Code = 15, Value = "value32" }
+        };
+
         CodeObjectsContext db;
         public CodeObjectsController(CodeObjectsContext context)
         {
             db = context;
+
+            db.CodeObjects.RemoveRange(db.CodeObjects); // очистка бд
+            db.SaveChanges();                           // удалить после тестирования метода Post
+
             if (!db.CodeObjects.Any()) {
-                db.CodeObjects.Add(new CodeObject { Code = 1, Value = "value1" });
-                db.CodeObjects.Add(new CodeObject { Code = 5, Value = "value5" });
-                db.CodeObjects.Add(new CodeObject { Code = 10, Value = "value10" });
-                db.CodeObjects.Add(new CodeObject { Code = 15, Value = "value32" });
-                db.SaveChanges();
+                Post(initialList);
+                Get();
+                //db.SaveChanges();
             }
         }
         [HttpGet]
@@ -30,16 +42,25 @@ namespace WebApiApp.Controllers
         {
             return await db.CodeObjects.ToListAsync();
         }
+
         [HttpPost]
-        public async Task<ActionResult<CodeObject>> Post(CodeObject codeObject)
+        public async Task<ActionResult<CodeObject>> Post(List<CodeObject> codeObject)
         {
-            if(codeObject == null)
+            //db.CodeObjects.RemoveRange(db.CodeObjects); // очистка бд
+            //db.SaveChanges();
+            var sortedList = codeObject.OrderBy(c => c.Code); // сортировка по полю Code перед загрузкой в бд
+            if (codeObject == null)
             {
                 return BadRequest();
             }
-            db.CodeObjects.Add(codeObject);
+
+            foreach (CodeObject elem in sortedList)
+            {
+                db.CodeObjects.Add(elem);
+            }
             await db.SaveChangesAsync();
-            return Ok(codeObject);
+            return Ok(sortedList);
         }
+
     }
 }

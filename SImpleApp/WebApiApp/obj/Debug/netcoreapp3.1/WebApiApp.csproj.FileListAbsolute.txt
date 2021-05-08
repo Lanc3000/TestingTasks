@@ -59,3 +59,4 @@ D:\Учёба\Working\Testing ASP.Net Core App\SImpleApp\WebApiApp\obj\Debug\net
 D:\Учёба\Working\Testing ASP.Net Core App\SImpleApp\WebApiApp\obj\Debug\netcoreapp3.1\WebApiApp.dll
 D:\Учёба\Working\Testing ASP.Net Core App\SImpleApp\WebApiApp\obj\Debug\netcoreapp3.1\WebApiApp.pdb
 D:\Учёба\Working\Testing ASP.Net Core App\SImpleApp\WebApiApp\obj\Debug\netcoreapp3.1\WebApiApp.genruntimeconfig.cache
+D:\Учёба\Working\Testing ASP.Net Core App\SImpleApp\WebApiApp\bin\Debug\netcoreapp3.1\WebApiApp.Views.dll
