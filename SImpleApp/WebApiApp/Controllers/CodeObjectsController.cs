@@ -48,7 +48,7 @@ namespace WebApiApp.Controllers
         {
             //db.CodeObjects.RemoveRange(db.CodeObjects); // очистка бд
             //db.SaveChanges();
-            var sortedList = codeObject.OrderBy(c => c.Code);
+            var sortedList = codeObject.OrderBy(c => c.Code); // сортировка по полю Code перед загрузкой в бд
             if (codeObject == null)
             {
                 return BadRequest();
@@ -61,18 +61,6 @@ namespace WebApiApp.Controllers
             await db.SaveChangesAsync();
             return Ok(sortedList);
         }
-        //public async Task<ActionResult<CodeObject>> Post(CodeObject codeObject)
-        //{
-        //    db.CodeObjects.RemoveRange(db.CodeObjects); // очистка бд
-        //    db.SaveChanges();
 
-        //    if (codeObject == null)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    db.CodeObjects.Add(codeObject);
-        //    await db.SaveChangesAsync();
-        //    return Ok(codeObject);
-        //}
     }
 }
