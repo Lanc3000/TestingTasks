@@ -22,6 +22,7 @@ namespace WebApiApp.Controllers
                                                 new CodeObject { Code = 20, Value = "value20" },
                                                 new CodeObject { Code = 15, Value = "value32" }
         };
+
         CodeObjectsContext db;
         public CodeObjectsController(CodeObjectsContext context)
         {
@@ -41,6 +42,7 @@ namespace WebApiApp.Controllers
         {
             return await db.CodeObjects.ToListAsync();
         }
+
         [HttpPost]
         public async Task<ActionResult<CodeObject>> Post(List<CodeObject> codeObject)
         {
